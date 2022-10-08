@@ -14,11 +14,14 @@ export default function SeatsScreen({ListSuccess,ListSuccessSet}) {
         CPF: ''
     });
     const { seats } = seat
-    console.log(form)
+    console.log(seat)
     useEffect(() => {
         const promisse = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${session}/seats`)
         promisse.then(resp => {
             setSeat(resp.data);
+            ListSuccessSet({
+                ...ListSuccess, "hour": resp.data.name
+            })
         })
 
         promisse.catch((erro) => {
@@ -48,9 +51,6 @@ export default function SeatsScreen({ListSuccess,ListSuccessSet}) {
     }
     function handleForm(e) {
         setForm({...form,[e.target.name]: e.target.value})
-        /* console.log(e.target.name)
-        console.log(e.target.value)
-        console.log(form) */
     }
 
     function reserveButton(event) {

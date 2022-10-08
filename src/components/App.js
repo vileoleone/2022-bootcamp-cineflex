@@ -5,6 +5,7 @@ import SessionScreen from "./SessionScreen"
 import SeatsScreen from "./SeatsScreen";
 import Sucess from "./SuccessScreen";
 import { useState } from "react";
+import Footer from "./footer";
 export default function App() {
     const [ListSuccess, ListSuccessSet] = useState({})
 
@@ -13,11 +14,12 @@ export default function App() {
         <BrowserRouter>
             <Header/>
         <Routes>
-                <Route path="/" element={<Home />}></Route>
-                <Route path="/filme/:idMovie" element={<SessionScreen />}></Route>
+                <Route path="/" element={<Home ListSuccess={ListSuccess} ListSuccessSet={ListSuccessSet} />}></Route>
+                <Route path="/filme/:idMovie" element={<SessionScreen ListSuccess={ListSuccess} ListSuccessSet={ListSuccessSet} />}></Route>
                 <Route path="/sessao/:session" element={<SeatsScreen ListSuccess={ListSuccess} ListSuccessSet={ListSuccessSet} />}></Route>
                 <Route path="/:sucesso" element={<Sucess ListSuccess={ListSuccess} />}></Route>
-        </Routes>
+            </Routes>
+            <Footer ListSuccess={ListSuccess}/>
         </BrowserRouter>
     )
 }

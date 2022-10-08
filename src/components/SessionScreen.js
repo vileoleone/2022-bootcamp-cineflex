@@ -4,11 +4,10 @@ import { useState, useEffect } from "react"
 import axios from "axios";
 import styled from "styled-components";
 
-export default function SessionScreen() {
+export default function SessionScreen({ ListSuccess, ListSuccessSet }) {
     const [info, setInfo] = useState({})
     const { idMovie } = useParams()
     let { days } = info;
-
     useEffect(() => {
         const promisse = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${idMovie}/showtimes`)
         promisse.then(resp => {
@@ -24,19 +23,20 @@ export default function SessionScreen() {
     if (days === undefined) {
         return <img src="loading.gif" alt="Requisição errada" />;
     }
+    console.log(days)
     return (
-
+        
         <Schedule>
             <h2> Selecione o horário</h2>
-            {days.map((i) => {
+            {days.map((i, index) => {
                 return (
-                    <SessionHour key={i.id}>
+                    <SessionHour key={index} onClick={() => {ListSuccessSet({ ...ListSuccess, "weekday": i.weekday})}}>
                         <h3>{i.weekday} - {i.date}</h3>
                         <Hourcontainer>
-                            {i.showtimes.map((hour) => {
+                            {i.showtimes.map((hour, index) => {
                                 return (
                                     <Link to={`/sessao/${hour.id}`}>
-                                        <Hour key={hour.id}> {hour.name} </Hour>
+                                        <Hour key={index}> {hour.name} </Hour>
                                     </Link>
 
                                 )
@@ -51,7 +51,8 @@ export default function SessionScreen() {
 
 }
 
-const Schedule = styled.section` 
+const Schedule = styled.section`
+    width: 100%; 
     background-color: #FFFFFF;
     display: flex;
     flex-direction: column;

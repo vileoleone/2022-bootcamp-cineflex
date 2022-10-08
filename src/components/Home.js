@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import axios from "axios";
 import styled from "styled-components";
 
-export default function Home() {
+export default function Home({ ListSuccess, ListSuccessSet }) {
 
     const [movies, setMovies] = useState(null)
     useEffect(() => {
@@ -34,7 +34,8 @@ export default function Home() {
                     return (
                         <Link to={`/filme/${movie.id}`}>
                             <Movie
-                                key={movie.id}
+                                key={i}
+                                onClick={() => { ListSuccessSet({...ListSuccess, "movie": movie.posterURL, "name":movie.title}) } }
                             >
                                 <img src={movie.posterURL} alt={movie.title} ></img>
 
