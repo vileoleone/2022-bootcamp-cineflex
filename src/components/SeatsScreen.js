@@ -1,20 +1,22 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from "react"
 import axios from "axios";
 import styled from "styled-components";
 import Chair from "./Chair";
-export default function SeatsScreen({ListSuccess,ListSuccessSet}) {
+export default function SeatsScreen({ ListSuccess, ListSuccessSet }) {
     const { session } = useParams()
     const [seat, setSeat] = useState({})
     const [selected, selectedSet] = useState([])
+    const [chairNumber, chairNumberSet] = useState([])
+    let navigate = useNavigate()
     const [form, setForm] = useState({
-        ids:[],
+        ids: [],
         nome: '',
         CPF: ''
     });
     const { seats } = seat
-    console.log(seat)
+
     useEffect(() => {
         const promisse = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${session}/seats`)
         promisse.then(resp => {
@@ -30,7 +32,7 @@ export default function SeatsScreen({ListSuccess,ListSuccessSet}) {
         })
     }, [session])
 
-    function selectChair(status, key) {
+    function selectChair(status, key, numberOfChair) {
         if (selected.find((i) => i.key === key)) {
             const newArray = selected.filter((i) => i.key !== key)
             selectedSet(newArray)
@@ -40,27 +42,39 @@ export default function SeatsScreen({ListSuccess,ListSuccessSet}) {
                 )
             })
             setForm({ ...form, ids: newIdArray })
+
+            const newChairArray = chairNumber.filter((n) => n !== numberOfChair + 1)
+            chairNumberSet(newChairArray)
         }
 
         if (status === true && selected.find((i) => i.key === key) === undefined) {
-            const newArray = [...selected, { "key": key, "selected": true } ]
+            const newArray = [...selected, { "key": key, "selected": true }]
             selectedSet(newArray)
             const pushId = [...form.ids, key]
-            setForm({...form, ids:pushId})
+            setForm({ ...form, ids: pushId })
+
+            const newChairArray = [...chairNumber, numberOfChair + 1]
+            chairNumberSet(newChairArray)
+
         }
     }
     function handleForm(e) {
-        setForm({...form,[e.target.name]: e.target.value})
+        setForm({ ...form, [e.target.name]: e.target.value })
+
     }
 
     function reserveButton(event) {
         event.preventDefault();
-        console.log('submitted')
+        ListSuccessSet({
+            ...ListSuccess, "buyerName": form.nome, "buyerCPF": form.CPF, "buyerSeats": chairNumber
+        })
         
         const URL = "https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many"
-        const promisse = axios.post(URL,form )
-        promisse.then((resp) => { console.log(resp) })
-        promisse.catch((resp) =>{console.log(resp)})
+        const promisse = axios.post(URL, form)
+        promisse.then(() => {
+            navigate("/sucesso")
+        })
+        promisse.catch((resp) => { console.log(resp) })
     }
 
     if (seats === undefined) {
@@ -80,6 +94,7 @@ export default function SeatsScreen({ListSuccess,ListSuccessSet}) {
                             selectChair={selectChair}
                             selected={selected}
                             index={chair.id}
+                            numberOfChair={i}
                         >
 
                         </Chair>
@@ -101,11 +116,11 @@ export default function SeatsScreen({ListSuccess,ListSuccessSet}) {
             <Form onSubmit={reserveButton}>
                 <Label>
                     <p>Nome do comprador:</p>
-                    <Input type="text" name="nome" placeholder="Digite seu nome..." onChange={handleForm} value={form.nome} />
+                    <Input required type="text" name="nome" placeholder="Digite seu nome..." onChange={handleForm} value={form.nome} />
                 </Label>
                 <Label>
                     <p>CPF do comprador:</p>
-                    <Input type="text" name="CPF" placeholder="Digite seu CPF..." onChange={handleForm} value={form.CPF} />
+                    <Input required type="text" name="CPF" placeholder="Digite seu CPF..." onChange={handleForm} value={form.CPF} />
                 </Label>
             </Form>
             <Link /* to={`/sucesso`} */>

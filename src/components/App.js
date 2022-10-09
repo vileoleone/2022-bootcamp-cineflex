@@ -17,9 +17,9 @@ export default function App() {
                 <Route path="/" element={<Home ListSuccess={ListSuccess} ListSuccessSet={ListSuccessSet} />}></Route>
                 <Route path="/filme/:idMovie" element={<SessionScreen ListSuccess={ListSuccess} ListSuccessSet={ListSuccessSet} />}></Route>
                 <Route path="/sessao/:session" element={<SeatsScreen ListSuccess={ListSuccess} ListSuccessSet={ListSuccessSet} />}></Route>
-                <Route path="/:sucesso" element={<Sucess ListSuccess={ListSuccess} />}></Route>
+                <Route path="/sucesso" element={<Sucess ListSuccess={ListSuccess} />}></Route>
             </Routes>
-            <Footer ListSuccess={ListSuccess}/>
+            <Footer ListSuccess={ListSuccess} ListSuccessSet={ListSuccessSet} />
         </BrowserRouter>
     )
 }

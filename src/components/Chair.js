@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 export default function Chair(props) {
-    const { name, status, selectChair, index, selected} = props
+    const { name, status, selectChair, index, selected, numberOfChair } = props
     
     function whatisStatus(chairStatus, index) {
         if (selected.find((i)=> i.key===index)) {
@@ -15,7 +15,7 @@ export default function Chair(props) {
     }
 
     return (
-        <Chairdiv color={whatisStatus(status, index)} onClick={()=>selectChair(status,index)}>
+        <Chairdiv color={whatisStatus(status, index)} onClick={() => selectChair(status, index, numberOfChair)}>
             {name}
         </Chairdiv>
     )

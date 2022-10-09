@@ -23,14 +23,13 @@ export default function SessionScreen({ ListSuccess, ListSuccessSet }) {
     if (days === undefined) {
         return <img src="loading.gif" alt="Requisição errada" />;
     }
-    console.log(days)
     return (
         
         <Schedule>
             <h2> Selecione o horário</h2>
             {days.map((i, index) => {
                 return (
-                    <SessionHour key={index} onClick={() => {ListSuccessSet({ ...ListSuccess, "weekday": i.weekday})}}>
+                    <SessionHour key={index} onClick={() => {ListSuccessSet({ ...ListSuccess, "weekday": i.weekday,  "date": i.date})}}>
                         <h3>{i.weekday} - {i.date}</h3>
                         <Hourcontainer>
                             {i.showtimes.map((hour, index) => {

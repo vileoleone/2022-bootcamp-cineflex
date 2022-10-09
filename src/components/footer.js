@@ -1,17 +1,26 @@
 import styled from "styled-components"
 export default function Footer({ ListSuccess }) {
 
-    console.log(ListSuccess)
-    return (
-        <Footerdiv>
-            <img src={ListSuccess.movie} alt="" />
-            <p>{ListSuccess.name} <br/> - {ListSuccess.hour}</p>
-            <p>
-               
-            </p>
-        </Footerdiv>
+    if (Object.keys(ListSuccess).length !== 0) {
+        return (
 
-    )
+            <Footerdiv>
+                <img src={ListSuccess.movie} alt="" />
+                <p>{ListSuccess.name} <br /> {ListSuccess.hour}</p>
+                <p>
+
+                </p>
+            </Footerdiv>
+
+        )
+    }
+
+    else {
+        return (
+            <Footerdiv></Footerdiv>
+        )
+    }
+    
 }
 
 const Footerdiv = styled.div`

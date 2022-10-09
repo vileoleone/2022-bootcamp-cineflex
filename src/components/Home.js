@@ -11,6 +11,7 @@ export default function Home({ ListSuccess, ListSuccessSet }) {
 
         promisse.then(resp => {
             setMovies(resp.data)
+            ListSuccessSet({})
         })
 
         promisse.catch((erro) => {
