@@ -70,7 +70,6 @@ const Movies = styled.div`
     flex-direction: row;
     width: 100%;
     flex-wrap: wrap;
-    border: 2px solid green;
     justify-content: center;
 `
 
