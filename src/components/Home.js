@@ -35,6 +35,7 @@ export default function Home({ ListSuccess, ListSuccessSet }) {
                     return (
                         <Link to={`/filme/${movie.id}`}>
                             <Movie
+                                data-identifier="movie-outdoor"
                                 key={i}
                                 onClick={() => { ListSuccessSet({...ListSuccess, "movie": movie.posterURL, "name":movie.title}) } }
                             >
@@ -79,4 +80,6 @@ const Movie = styled.div`
     width: 130px;
     height: 190px;
     margin: 40px;
+    border: 10px solid white;
+    box-shadow:  2px 2px 10px 2px gray;
 `

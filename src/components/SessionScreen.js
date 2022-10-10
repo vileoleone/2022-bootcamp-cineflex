@@ -25,17 +25,17 @@ export default function SessionScreen({ ListSuccess, ListSuccessSet }) {
     }
     return (
         
-        <Schedule>
+        <Schedule data-identifier="session-date">
             <h2> Selecione o horário</h2>
             {days.map((i, index) => {
                 return (
-                    <SessionHour key={index} onClick={() => {ListSuccessSet({ ...ListSuccess, "weekday": i.weekday,  "date": i.date})}}>
+                    <SessionHour  key={index} onClick={() => {ListSuccessSet({ ...ListSuccess, "weekday": i.weekday,  "date": i.date})}}>
                         <h3>{i.weekday} - {i.date}</h3>
                         <Hourcontainer>
                             {i.showtimes.map((hour, index) => {
                                 return (
                                     <Link to={`/sessao/${hour.id}`}>
-                                        <Hour key={index}> {hour.name} </Hour>
+                                        <Hour data-identifier="hour-minute-btn" key={index}> {hour.name} </Hour>
                                     </Link>
 
                                 )
@@ -89,4 +89,5 @@ const Hour = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
 `

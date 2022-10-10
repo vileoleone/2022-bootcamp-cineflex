@@ -103,9 +103,9 @@ export default function SeatsScreen({ ListSuccess, ListSuccessSet }) {
             </Seats>
 
             <SeatsLegends>
-                <ChairLegends color="#1AAE9E"></ChairLegends>
-                <ChairLegends color="#C3CFD9"></ChairLegends>
-                <ChairLegends color="#FBE192"></ChairLegends>
+                <ChairLegends data-identifier="seat-selected-subtitle" color="#1AAE9E"></ChairLegends>
+                <ChairLegends data-identifier="seat-available-subtitle"  color="#C3CFD9"></ChairLegends>
+                <ChairLegends data-identifier="seat-unavailable-subtitle" color="#FBE192"></ChairLegends>
             </SeatsLegends>
             <SeatsLegends>
                 <h1>Selecionado</h1>
@@ -116,15 +116,15 @@ export default function SeatsScreen({ ListSuccess, ListSuccessSet }) {
             <Form onSubmit={reserveButton}>
                 <Label>
                     <p>Nome do comprador:</p>
-                    <Input required type="text" name="nome" placeholder="Digite seu nome..." onChange={handleForm} value={form.nome} />
+                    <Input data-identifier="buyer-name-input" required type="text" name="nome" placeholder="Digite seu nome..." onChange={handleForm} value={form.nome} />
                 </Label>
                 <Label>
                     <p>CPF do comprador:</p>
-                    <Input required type="text" name="CPF" placeholder="Digite seu CPF..." onChange={handleForm} value={form.CPF} />
+                    <Input data-identifier="buyer-cpf-input" required type="text" name="CPF" placeholder="Digite seu CPF..." onChange={handleForm} value={form.CPF} />
                 </Label>
             </Form>
             <Link /* to={`/sucesso`} */>
-                <SuccessButton type="submit" onClick={reserveButton}>Reservar Assento(s)</SuccessButton>
+                <SuccessButton data-identifier="reservation-btn" type="submit" onClick={reserveButton}>Reservar Assento(s)</SuccessButton>
             </Link>
         </Session >
 

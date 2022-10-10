@@ -4,12 +4,9 @@ export default function Footer({ ListSuccess }) {
     if (Object.keys(ListSuccess).length !== 0) {
         return (
 
-            <Footerdiv>
-                <img src={ListSuccess.movie} alt="" />
+            <Footerdiv data-identifier="movie-and-session-infos-preview">
+                <img data-identifier="movie-img-preview" src={ListSuccess.movie} alt="" />
                 <p>{ListSuccess.name} <br /> {ListSuccess.hour}</p>
-                <p>
-
-                </p>
             </Footerdiv>
 
         )
@@ -32,12 +29,14 @@ const Footerdiv = styled.div`
     align-items: center;
     margin-top: 20px;
     flex-wrap: wrap;
-    tect-align: left;
-
+    text-align: left;
+    
 
     img {
         width: 57px;
-        height:90px;
+        height:80px;
+        border: 10px solid white;
+        box-shadow:  2px 2px 10px 2px gray;
     }
     p{
         font-size: 25px;

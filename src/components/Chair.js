@@ -15,7 +15,7 @@ export default function Chair(props) {
     }
 
     return (
-        <Chairdiv color={whatisStatus(status, index)} onClick={() => selectChair(status, index, numberOfChair)}>
+        <Chairdiv data-identifier="seat" color={whatisStatus(status, index)} onClick={() => selectChair(status, index, numberOfChair)}>
             {name}
         </Chairdiv>
     )
